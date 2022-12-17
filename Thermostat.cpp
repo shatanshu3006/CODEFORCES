@@ -49,24 +49,41 @@ return true;
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
-                    
-void solve()
-{
-  int l1,l2,r1,r2;
-  cin>>l1>>r1>>l2>>r2;
-  if(l2>r1 || l1>r2){
-      cout<<-1<<endl;
-      return;
-  } 
-  cout<<max(l1,l2)<<" "<<min(r1,r2)<<endl;
-}
-                    
 signed main()
 {
-int t=1;
-//cin>>t;
+int t;
+cin>>t;
 while(t--)
 {
-   solve();
+  ll l, r, x;
+        cin >> l >> r >> x;
+        ll a, b;
+        cin >> a >> b;
+        if(a == b){
+            cout << 0 << endl;
+            continue;
+        }
+        if(abs(a - b) >= x){
+            cout << 1 << endl;
+        }else{
+            if(a > b){
+                swap(a, b);
+            }
+            if(a - x >= l){
+                cout << 2 << endl;
+                continue;
+            }
+            if(b + x <= r){
+                cout << 2 << endl;
+                continue;
+            }
+            if(r - a >= x && b - l >= x){
+                cout << 3 << endl;
+                continue;
+            }
+            cout << -1 << endl;
+        }
+   
+
 }
-} 
+}

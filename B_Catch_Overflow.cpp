@@ -50,23 +50,50 @@ return true;
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
                     
-void solve()
-{
-  int l1,l2,r1,r2;
-  cin>>l1>>r1>>l2>>r2;
-  if(l2>r1 || l1>r2){
-      cout<<-1<<endl;
-      return;
-  } 
-  cout<<max(l1,l2)<<" "<<min(r1,r2)<<endl;
-}
-                    
 signed main()
 {
-int t=1;
-//cin>>t;
-while(t--)
-{
-   solve();
+ll t, total=0;
+bool overflow =false;
+stack<ll> st;
+st.push(1);
+cin>>t;
+while(t--){
+    string s;ll n;
+    cin>>s;
+    if(s=="for"){
+        cin>>n;
+        ll num=st.top();
+        if(num==-1){
+            st.push(-1);
+        }
+        else if(num*n>INT_MAX){
+            st.push(-1);
+        }
+        else{
+            st.push(num*n);
+        }
+    }
+    if(overflow==false){
+        if(s=="add"){
+            if(st.top()!=-1){
+                total=total+st.top();
+            }
+            else{
+                overflow=true;
+            }
+        }
+        if(s=="end"){
+            st.pop();
+        }
+    }
+    if(total>INT_MAX){
+        overflow=true;
+    }
 }
-} 
+if(!overflow){
+    cout<<total<<endl;
+}
+else{
+    cout<<"OVERFLOW!!!"<<endl;
+}
+}

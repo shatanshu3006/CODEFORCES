@@ -22,7 +22,8 @@ cin>>k>>s;
 ll count=0;
 for(ll i=0;i<k;i++){
     for(ll j=0;j<k;j++){
-        if(s-i-j>=0 && s-i-j<=k){
+        int z=s-i-j;
+        if(z>=0 && z<=k){
             count++;
         }
     }

@@ -52,14 +52,22 @@ return true;
                     
 void solve()
 {
-  int l1,l2,r1,r2;
-  cin>>l1>>r1>>l2>>r2;
-  if(l2>r1 || l1>r2){
-      cout<<-1<<endl;
-      return;
-  } 
-  cout<<max(l1,l2)<<" "<<min(r1,r2)<<endl;
-}
+   int n,q;cin>>n>>q;
+   map<int,int> mp;
+    int z,x;
+   while(q--){
+       cin>>z>>x;
+       if(z==1){
+           mp[x]++;
+       }
+       else{
+            cout<<mp[x]<<endl;
+              
+           }
+       }
+   }
+
+
                     
 signed main()
 {
@@ -69,4 +77,4 @@ while(t--)
 {
    solve();
 }
-} 
+}
