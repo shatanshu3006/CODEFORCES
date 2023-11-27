@@ -49,25 +49,40 @@ return true;
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
-int f(int n,int k){
-    int ans=0;
-    if(n==k){
-        return 1;
+                    
+void solve()
+{
+   int n,k;
+  cin >> n;
+  vector<int> v(n);
+  for(int i = 0;i<n;i++)
+  {
+    cin >> v[i];
+  }
+  int minimum = v.front();
+  int maximum = 100000000000;
+  int ans = 0;
+  for (int i = 0; i < n; i++)
+  {
+    if (v[i] > minimum && v[i] < maximum)
+    {
+      ans++;
+      maximum = v[i];
     }
-    if(n+1<=k){
-        ans+=f(n+1,k);
+    else if (v[i] < minimum)
+    {
+      minimum = v[i];
     }
-    if(n+2<=k){
-        ans+=f(n+2,k);
-    }
-    if(n+3<=k){
-        ans+=f(n+3,k);
-    }
-    return ans;
-}                
+  }
+  cout << ans << '\n';
+}
+                    
 signed main()
 {
-    int n,k;cin>>n>>k;
-    cout<<f(n,k)<<endl;
-
+int t=1;
+cin>>t;
+while(t--)
+{
+   solve();
+}
 }
