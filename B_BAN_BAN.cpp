@@ -52,27 +52,14 @@ return true;
                     
 void solve()
 {
-   ll n;cin>>n;
-   vector<ll>a(n);
-   ll count_neg=0;
-   ll sum=0;
-   fori(i,0,n){
-       cin>>a[i];
-       if(a[i]<=0){
-           count_neg++;
-           a[i]=-a[i];
-       }
-       sum+=a[i];
+   int n;cin>>n;
+   cout<<n/2 + n%2<<endl;
+   int left=1,right=3*n;
+   while(left<right){
+       cout<<left<<" "<<right<<endl;
+       left+=3;
+       right-=3;
    }
-   if(count_neg%2==0){
-       cout<<sum<<endl;
-       return;
-   }
-   else{
-       sort(a.begin(),a.end());
-       cout<<sum-2*(a[0])<<endl;
-   }
-   
 }
                     
 signed main()
