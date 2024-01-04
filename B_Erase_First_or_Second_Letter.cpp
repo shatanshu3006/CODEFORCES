@@ -50,24 +50,7 @@ return true;
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
 
-void func(int ind,string s,set<string>&ans){
-    if(ind==s.length())return;
-    string str1="";
-    string str2="";
-    str2+=s[ind];
-    for(int i=ind+1;i<s.length();i++){
-        str1+=s[i];
-    }
-    for(int i=ind+2;i<s.length();i++){
-        str2+=s[i];
-    }
-    if(str1=="")return;
-    if(str2=="")return;
-    ans.insert(str1);
-    ans.insert(str2);
-    func(ind+1,s,ans);
-    
-}
+
 void solve()
 {
    int n;cin>>n;
