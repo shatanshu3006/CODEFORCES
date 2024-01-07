@@ -52,11 +52,13 @@ return true;
                     
 void solve()
 {
-   int n,p;
-   cin>>n>>p;
-   vector<int>a(n);
-   for(int i=0;i<n;i++){
-      cin>>a[i];
+   ll a,b;
+   cin>>a>>b;
+   if((a+b)%2==0){
+       cout<<"Bob"<<endl;
+   }
+   else{
+       cout<<"Alice"<<endl;
    }
 }
                     
