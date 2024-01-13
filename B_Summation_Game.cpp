@@ -52,30 +52,46 @@ return true;
                     
 void solve()
 {
-   ll n,p;
-   cin>>n>>p;
-   vector<ll>a(n);
-   for(ll i=0;i<n;i++){
-      cin>>a[i];
-   }
-   vector<ll>b(n);
-   for(ll i=0;i<n;i++){
-      cin>>b[i];
-   }
-   vector<pair<ll,ll> >vp;
-   for(ll i=0;i<n;i++){
-      vp.push_back({(min(p,b[i])),a[i]});
+   int n,k,x;
+   cin>>n>>k>>x;
+   vector<ll>v(n);
+   fori(i,0,n)cin>>v[i];
+   sort(v.begin(),v.end());
+   reverse(v.begin(),v.end());
+   
+   ll xsum=0;
+   for(int i=0;i<x;i++){
+       xsum+=v[i];
    }
 
-   ll ans=p;        //cheif tells the first time
-   ll rem=n-1;      //remaining to be told
-sort(vp.begin(),vp.end());
-   for(ll i=0;i<n-1;i++){
-      ans+=min(vp[i].second,rem)*vp[i].first;
-      rem-=min(vp[i].second,rem);
+   ll sum=0,ans=0,j=0,count=0;
+   sum=accumulate(v.begin(),v.end(),sum)-xsum;
+   ans=sum-xsum;
+
+   for(int i=x;i<n;i++){
+       sum-=v[i];
+       xsum+=v[i];
+       xsum-=v[j++];
+       count++;
+       ans=max(ans,sum-xsum);
+       if(count==k)break;
+   }
+   ll index=count;
+   if(count<k){
+       fori(i,index,n){
+           xsum-=v[i];
+           ans=max(ans,-xsum);
+           count++;
+           if(count ==k){
+               break;
+           }
+       }
+   }
+   if(k==n){
+       ans=max(ans,(ll)0);
+       
    }
    cout<<ans<<endl;
-
 }
                     
 signed main()

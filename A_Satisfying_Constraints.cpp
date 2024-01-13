@@ -52,30 +52,39 @@ return true;
                     
 void solve()
 {
-   ll n,p;
-   cin>>n>>p;
-   vector<ll>a(n);
-   for(ll i=0;i<n;i++){
-      cin>>a[i];
+   int n;cin>>n;
+   ll lower_bound=1,upper_bound=1e9;
+      vector<ll>exclude;
+      ll actual_ex=0;
+   while(n--){
+       ll a,x;
+       cin>>a;cin>>x;
+       if(a==1){
+           lower_bound=max(lower_bound,x);
+       }
+       if(a==2){
+           upper_bound=min(upper_bound,x);
+       }
+       if(a==3){
+           exclude.push_back(x);
+       }
    }
-   vector<ll>b(n);
-   for(ll i=0;i<n;i++){
-      cin>>b[i];
-   }
-   vector<pair<ll,ll> >vp;
-   for(ll i=0;i<n;i++){
-      vp.push_back({(min(p,b[i])),a[i]});
+   //cout<<"lb: "<<lower_bound<<" "<<"ub: "<<upper_bound<<endl;
+   for(int i=0;i<exclude.size();i++){
+       if(exclude[i]>=lower_bound && exclude[i]<=upper_bound){
+           actual_ex++;
+       }
    }
 
-   ll ans=p;        //cheif tells the first time
-   ll rem=n-1;      //remaining to be told
-sort(vp.begin(),vp.end());
-   for(ll i=0;i<n-1;i++){
-      ans+=min(vp[i].second,rem)*vp[i].first;
-      rem-=min(vp[i].second,rem);
+   
+   if(lower_bound>upper_bound){
+       cout<<0<<endl;
    }
-   cout<<ans<<endl;
-
+   else{
+      cout<<(upper_bound-lower_bound+1)-actual_ex<<endl;
+   }
+   
+   
 }
                     
 signed main()

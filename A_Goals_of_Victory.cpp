@@ -52,29 +52,14 @@ return true;
                     
 void solve()
 {
-   ll n,p;
-   cin>>n>>p;
-   vector<ll>a(n);
-   for(ll i=0;i<n;i++){
-      cin>>a[i];
+   int n;cin>>n;
+   vector<int>a(n-1);
+   int sum=0;
+   for(int i=0;i<n-1;i++){
+       cin>>a[i];
+       sum+=a[i];
    }
-   vector<ll>b(n);
-   for(ll i=0;i<n;i++){
-      cin>>b[i];
-   }
-   vector<pair<ll,ll> >vp;
-   for(ll i=0;i<n;i++){
-      vp.push_back({(min(p,b[i])),a[i]});
-   }
-
-   ll ans=p;        //cheif tells the first time
-   ll rem=n-1;      //remaining to be told
-sort(vp.begin(),vp.end());
-   for(ll i=0;i<n-1;i++){
-      ans+=min(vp[i].second,rem)*vp[i].first;
-      rem-=min(vp[i].second,rem);
-   }
-   cout<<ans<<endl;
+   cout<<(-1)*sum<<endl;
 
 }
                     
