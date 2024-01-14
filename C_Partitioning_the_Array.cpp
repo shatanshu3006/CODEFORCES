@@ -45,34 +45,34 @@ return false;
 }
 return true;
 }
-                    
+     #include <algorithm>               
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
                     
 void solve()
 {
-   ll n,k,x;
-   cin>>n>>k>>x;
-   ll sum=0;ll ans=INT_MAX;
-   vector<ll>a(n),pre(n+1);
+   int n,ans=0;
+   cin>>n;
+   vector<int>a(n);
    fori(i,0,n)cin>>a[i];
-
-   sort(a.begin(),a.end());
-   for(ll i=1;i<=n;i++){
-       pre[i]=pre[i-1]+a[i-1];
-   }
-
-   ll maxx=[&](ll idx){
-       return pre[min(n,idx+x)]-pre[idx];
-   };
- sum=accumulate(a.begin(),a.end(),0ll);
-   for(ll i=0;i<=k;i++){
-       ans=max(ans,sum-2*(maxx(i)));
-       sum-=a[i];
+   for(int i=1;i<=n;i++){
+       if(n%i==0){
+           int k=n/i;
+           int g=0;
+           for(int j=0;j<k;j++){
+               int diff=0;
+               for(int l=j;l<n;l+=k){
+                   diff=__gcd(diff,abs(a[j]-a[l]));
+               }
+               g=__gcd(g,diff);
+           }
+           if(g!=1){
+               ans++;
+           }
+       }
    }
    cout<<ans<<endl;
-
 }
                     
 signed main()
