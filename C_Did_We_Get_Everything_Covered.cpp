@@ -52,61 +52,37 @@ return true;
                     
 void solve()
 {
-   ll n,k,m;
+   int n,k,m;
    cin>>n>>k>>m;
-   string str;
-   cin>>str;
-   string s="";
-   char ch='a';
-   while(k--){
-       s+=ch;
-       ch++;
-   }
+   string s;
+   cin>>s;
+   m=s.length();
    string ans="";
-   while(n--){
-   ans+=s;
-   }
-   //ans-> abcabcabc
-   map<char,int>mp;
-   for(int i=0;i<s.length();i++){
-       mp[s[i]]++;
-   }
-   map<char,int>mp1;
-   for(int i=0;i<m;i++){
-       mp1[str[i]]++;
-   }
-   vector<pair<char,int>>v1,v2;
-   for(auto it:mp){
-       v1.push_back({it.first,it.second});
-   }
-   for(auto it:mp1){
-       v2.push_back({it.first,it.second});
-   }
-   string res="";
-   char ch;
-   ll len;
-   for(int i=0;i<v1.size();i++){
-       if(v2[i].second>=v1[i].second){
-           continue;
+   set<char>st;
+   fori(i,0,m){
+       st.insert(s[i]);
+       if(st.size()==k){
+           ans+=s[i];
+           st.clear();
        }
-       else{
-           ll diff=abs(v2[i].second-v1[i].second);
-           ch=v2[i].first;
-           len=v2[i].second+diff;
-       }
-
    }
-   while(len>0){
-       res+=ch;
-   }
-   if(res.length()==0){
+   if(ans.length()>=n){
        cout<<"YES"<<endl;
    }
    else{
        cout<<"NO"<<endl;
-       cout<<res<<endl;
+       char missing;
+       for(int j=0;j<k;j++){
+           char ch=(char)('a'+j);
+           if(st.count(ch)==0){
+               missing=ch;
+           }
+       }
+       while(ans.length()<n){
+           ans+=missing;
+       }
+       cout<<ans<<endl;
    }
-
 }
                     
 signed main()
