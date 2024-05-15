@@ -19,8 +19,8 @@ vector<int> sieve(int n) {int*arr = new int[n + 1](); vector<int> vect; for (int
 #define mp make_pair
 #define Max(x,y,z) max(x,max(y,z))
 #define Min(x,y,z) min(x,min(y,z))
-#define fori(i,a,n) for(ll i=a;i<n;i++)
-#define forj(j,b,n) for(ll j=b;j<n;j++)
+#define fori(i,a,n) for(int i=a;i<n;i++)
+#define forj(j,b,n) for(int j=b;j<n;j++)
 #define fast ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 #define pi (3.141592653589)
 #define MOD 1000000007
@@ -52,37 +52,26 @@ return true;
                     
 void solve()
 {
-   ll n,p;
-    cin >> n >> p;
-    vl a(n);
-    fori(i,0,n) cin >> a[i];
-    ll i=0,j=0,songs=0,mii=INT_MAX;
-    ll sum = accumulate(a.begin(),a.end(),0LL);
-    if(p >= sum){
-        songs+=(p/sum)*n;
-        p = p%sum;
-    }
-    int temp=0,idx;
-    for(int i=0;i<n;i++){
-        ll temp=0,j=i,take=0;
-        while(temp < p){
-            temp+=a[j];
-            take++;
-            j=(j+1)%n;
-        }
-        if(take < mii){
-            mii = take;
-            idx = i+1;
-        }
-    }
-    cout << idx << " " << mii + songs << endl;
-   
+   ll n,s;
+   cin>>n>>s;
+   vi d(n);
+   fori(i,0,n)cin>>d[i];
+
+   ll ans=(n)*(n+1)/2;
+   ll r=0,l=0;
+   while(r<n){
+       while(d[r]-d[l]>s){
+           l++;
+       }
+       ans-=(r-l+1);
+       r++;
+   }
+   cout<<ans<<endl;
 }
                     
 signed main()
 {
 int t=1;
-
 while(t--)
 {
    solve();
