@@ -49,57 +49,70 @@ return true;
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
-                    
+
+bool func(vector<ll>&a,ll mid,ll n,ll k){
+    ll sum=0;
+    ll cnt=1;
+    //finding the number of subarrays such that eah subarray has sum <=mid
+    for(ll i=0;i<n;i++){
+        sum+=a[i];
+        if(sum>mid){
+            cnt++;
+            sum=a[i];
+        } 
+    }
+
+    //if the number of subarrays is less than or equal to k
+    // then it is possible to divide arr into k subarrays with sum <=mid
+    return cnt<=k;
+}
 void solve()
 {
-   string s;
-        cin >> s;
+   ll n,k;
+   cin>>n>>k;
+   vector<ll>a(n);
+   fori(i,0,n)cin>>a[i];
 
-        vector<int> odd, even;
+   // lower limit -> 7 , upper limit ->sum of array->21
+   // search space -> [7,21]
+   // mid->14
+   // upper lim ->13
 
-        int n = s.length();
-        for(int i = 0; i < n; i++)
-        {
-            int k = s[i] - '0';
-            if(k % 2)
-                odd.pb(k);
-            else
-                even.pb(k);
-        }
+   //search space -> [7,13]
+   //mid->10
+   //upper lim -> 9
+   
+   //search space-> [7,9]
+   // mid->8
+   //low=mid
 
-        int i = 0, j = 0;
-        while(i < even.size() || j < odd.size())
-        {
-            if(i < even.size() && j < odd.size())
-            {
-                if(even[i] <= odd[j]){
-                    cout<<(even[i]);
-                    i++;
-                }
-                else{
-                    cout<<(odd[j]);
-                    j++;
-                }
-            }
-            //if the number of even numbers are more
-            else if(i < even.size()){
-                cout<<(even[i]);
-                i++;
-            }
-            //if the number of odd numbers are more
-            else{
-                cout<<(odd[j]);
-                j++;
-            }
-        }
+   ll start=*max_element(a.begin(),a.end());
+   ll end= accumulate(a.begin(),a.end(),0LL);
+   ll ans=0;
 
-        cout<<endl;
+// binary search to minimize the maximum sum
+   while(start<=end){
+       ll mid=(start + (end-start)/2);
+       //if it is possible to divide array into k subarrays such that each subarrya sum <=mid
+       if(func(a,mid,n,k)==true){
+           ans=mid;
+           end=mid-1;
+       }
+       //if it is not possible to divide into k
+       // go towards the larger value
+       else{
+           start=mid+1;
+       }
+   }
+   cout<<ans<<endl;
+
+
 }
                     
 signed main()
 {
 int t=1;
-cin>>t;
+
 while(t--)
 {
    solve();

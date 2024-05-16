@@ -50,56 +50,37 @@ return true;
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
                     
+ll check(vi a, ll target, ll n, ll k){
+    ll sum=0,cnt=1;
+    fori(i,0,n){
+        if(sum + a[i] > target){
+            cnt++;
+            sum=0;
+        }
+        sum+=a[i];
+    }
+    return cnt <= k;
+}
+
 void solve()
 {
-   string s;
-        cin >> s;
-
-        vector<int> odd, even;
-
-        int n = s.length();
-        for(int i = 0; i < n; i++)
-        {
-            int k = s[i] - '0';
-            if(k % 2)
-                odd.pb(k);
-            else
-                even.pb(k);
-        }
-
-        int i = 0, j = 0;
-        while(i < even.size() || j < odd.size())
-        {
-            if(i < even.size() && j < odd.size())
-            {
-                if(even[i] <= odd[j]){
-                    cout<<(even[i]);
-                    i++;
-                }
-                else{
-                    cout<<(odd[j]);
-                    j++;
-                }
-            }
-            //if the number of even numbers are more
-            else if(i < even.size()){
-                cout<<(even[i]);
-                i++;
-            }
-            //if the number of odd numbers are more
-            else{
-                cout<<(odd[j]);
-                j++;
-            }
-        }
-
-        cout<<endl;
+    ll n,k,ans=-1;
+    cin >> n >> k;
+    vi a(n);
+    fori(i,0,n) cin >> a[i];
+    ll l=*max_element(a.begin(),a.end()),h=accumulate(a.begin(),a.end(),0);
+    while(l <= h){
+        ll mid = (l+h)/2;
+        if(check(a,mid,n,k)) ans=mid,h = mid-1;
+        else l = mid+1;
+    }
+    cout << ans << endl;
 }
                     
 signed main()
 {
 int t=1;
-cin>>t;
+
 while(t--)
 {
    solve();
