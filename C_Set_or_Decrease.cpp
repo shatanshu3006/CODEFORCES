@@ -3,7 +3,7 @@
 using namespace std;
                     
 typedef long long ll;
-typedef vector<int> vi;
+typedef vector<long long> vi;
 typedef vector<long> vl;
 #define all(x) begin(x), end(x)
 #define rall(x) x.rbegin(), x.rend()
@@ -49,47 +49,54 @@ return true;
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
-                    
-void solve()
-{
-   int n,k;cin>>n>>k;
-   vector<int>v(n);
-   int maxVal=0;
-   for(int i=0;i<n;i++){
-       cin>>v[i];
-       maxVal=max(maxVal,v[i]);
-   }
-   ll low=maxVal;
-   ll hi=INT_MAX;
-   ll maximumSum=INT_MAX;
-   while(low<=hi){
-       ll mid=(low+hi)/2;
-       int blocks=1;    //we have atleast one block
-       ll sum=0;
-       for(int i=0;i<n;i++){
-           if(sum+v[i]>mid){
-               sum=0;
-               blocks++;
-           }
-           sum+=v[i];
-       }
-       if(blocks>k){
-           low=mid+1;
-       }
-       else{
-           if(mid<maximumSum){
-               maximumSum=mid;
-           }
-           hi=mid-1;
-       }
-   }
-   cout<<maximumSum<<endl;
+bool check(long long mid, vector<long long>&arr, long long sum, long long k){
+    if(sum-mid<=k) return true;
+    for(long long i=arr.size()-1;i>=(max((long long)1,(long long)arr.size()-mid));i--){
+        sum-=arr[i];
+        long long movesrem = mid-(arr.size()-i);
+        long long temp = sum-arr[0]+(arr.size()-i+1)*(arr[0]-movesrem);
+        if(temp<=k) return true;
+    }
+ 
+    return false;
+}
+ 
+void solve(){
+    long long n,k;
+    cin>>n>>k;
+    vi arr(n);
+    long long sum = 0;
+ 
+    for(long long i=0;i<n;i++) {
+        cin>>arr[i];
+        sum+=arr[i];
+    }
+    sort(arr.begin(),arr.end());
+    long long l=0;
+    long long h=sum-k;
+    if(sum-k<=0){
+        cout<<0<<endl;
+        return;
+    }
+    else{
+    long long ans = -1;
+    while(l<=h){
+        long long mid = l + (h-l)/2;
+        if(check(mid,arr,sum,k)){
+            ans=mid;
+            h = mid-1;
+        }
+        else l=mid+1;
+    }
+ 
+    cout<<ans<<endl;
+    }
 }
                     
 signed main()
 {
 int t=1;
-
+cin>>t;
 while(t--)
 {
    solve();

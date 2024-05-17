@@ -52,38 +52,13 @@ return true;
                     
 void solve()
 {
-   int n,k;cin>>n>>k;
-   vector<int>v(n);
-   int maxVal=0;
+   int n;cin>>n;
+   set<int>st;
    for(int i=0;i<n;i++){
-       cin>>v[i];
-       maxVal=max(maxVal,v[i]);
+       int x;cin>>x;
+       st.insert(x);
    }
-   ll low=maxVal;
-   ll hi=INT_MAX;
-   ll maximumSum=INT_MAX;
-   while(low<=hi){
-       ll mid=(low+hi)/2;
-       int blocks=1;    //we have atleast one block
-       ll sum=0;
-       for(int i=0;i<n;i++){
-           if(sum+v[i]>mid){
-               sum=0;
-               blocks++;
-           }
-           sum+=v[i];
-       }
-       if(blocks>k){
-           low=mid+1;
-       }
-       else{
-           if(mid<maximumSum){
-               maximumSum=mid;
-           }
-           hi=mid-1;
-       }
-   }
-   cout<<maximumSum<<endl;
+   cout<<st.size()<<endl;
 }
                     
 signed main()
