@@ -49,52 +49,48 @@ return true;
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
-                    
+               
 void solve()
 {
-   int n;cin>>n;
-   int a[200020],b[200020];
-   bool flag=false;
-   //taking the inputs and filling -1 and non -1 corresponding values to b
-   
-   for(int i=1;i<=n;i++){
-      cin>>a[i];
-      if(a[i]!=-1){
-         b[i]=a[i];
-         flag=true;
-      }
-      else{
-         b[i]=b[i-1]/2;
-      }
-
-      if(flag==true && b[i]==0){
-         b[i]=2;
-      }
+   ll n;cin>>n;
+   const ll MX=2000000+5;
+   vector<ll> lessCnt(MX);
+   while(n--){
+       ll c;cin>>c;
+       lessCnt[c]++;
    }
 
-   // if the segment between l to r is -1 then we handle it separately
-   b[n+1]=b[0];
-   for(int i=n;i>=1;i--){
-      if(a[i]==-1){
-         b[i]=max(b[i],b[i+1]/2);
-      }
-      if(b[i]==0){
-         b[i]=2;
-      }
-   }
-
-   //check if the array we made is good or not else return -1
-   for(int i=1;i<n;i++){
-       if (b[i] != b[i + 1] / 2 && b[i] / 2 != b[i + 1]) {
-            cout << "-1" << endl;
-            return;
-        }
-   }
-//print the final array b
-for(int i=1;i<=n;i++){
-   cout<<b[i]<<" ";
+// to find all the elements greter than x,2x,3x,and so on 
+for(ll i=1;i<MX;i++){
+    lessCnt[i]+=lessCnt[i-1];
 }
-cout<<endl;
+   // for finding all the elements between [l,r] lessCnt[r]-lessCnt[l-1]
+
+   ll ans=0;
+
+   // alerady we knoe that aj/ai =k so if we iterate through all ai and k we can directly fix aj
+   //so we create 2 nestedloops 
+
+   for(ll ai=1;ai<MX;ai++){     //for ai
+       // for finding all the elements between [l,r] lessCnt[r]-lessCnt[l-1]
+       const ll f=lessCnt[ai]-lessCnt[ai-1];
+
+       if(f==0)continue;
+
+       ans+=f*(f-1)/2; // add all the fC2 combinations to ans
+
+        for(ll k=1; k<MX/ai;k++){       //for each aj/ai=k
+            ll elementCount=lessCnt[(k+1)*ai-1]-lessCnt[k*ai-1];
+
+            //exclude ai 
+            if(k==1){
+                elementCount-=f;
+            }
+            ans+=elementCount*f*k;
+        } 
+   }
+
+   cout<<ans<<endl;
 
 
 }
@@ -102,7 +98,7 @@ cout<<endl;
 signed main()
 {
 int t=1;
-cin>>t;
+
 while(t--)
 {
    solve();

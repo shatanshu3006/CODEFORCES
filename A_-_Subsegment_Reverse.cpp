@@ -52,57 +52,23 @@ return true;
                     
 void solve()
 {
-   int n;cin>>n;
-   int a[200020],b[200020];
-   bool flag=false;
-   //taking the inputs and filling -1 and non -1 corresponding values to b
-   
-   for(int i=1;i<=n;i++){
-      cin>>a[i];
-      if(a[i]!=-1){
-         b[i]=a[i];
-         flag=true;
-      }
-      else{
-         b[i]=b[i-1]/2;
-      }
-
-      if(flag==true && b[i]==0){
-         b[i]=2;
-      }
+   ll n,l,r;
+   cin>>n>>l>>r;
+   for(ll i=1;i<l;i++){
+       cout<<i<<" ";
    }
-
-   // if the segment between l to r is -1 then we handle it separately
-   b[n+1]=b[0];
-   for(int i=n;i>=1;i--){
-      if(a[i]==-1){
-         b[i]=max(b[i],b[i+1]/2);
-      }
-      if(b[i]==0){
-         b[i]=2;
-      }
+   for(ll j=r;j>=l;j--){
+       cout<<j<<" ";
    }
-
-   //check if the array we made is good or not else return -1
-   for(int i=1;i<n;i++){
-       if (b[i] != b[i + 1] / 2 && b[i] / 2 != b[i + 1]) {
-            cout << "-1" << endl;
-            return;
-        }
+   for(ll k=r+1;k<=n;k++){
+       cout<<k<<" ";
    }
-//print the final array b
-for(int i=1;i<=n;i++){
-   cout<<b[i]<<" ";
-}
-cout<<endl;
-
-
 }
                     
 signed main()
 {
 int t=1;
-cin>>t;
+
 while(t--)
 {
    solve();

@@ -52,57 +52,49 @@ return true;
                     
 void solve()
 {
-   int n;cin>>n;
-   int a[200020],b[200020];
-   bool flag=false;
-   //taking the inputs and filling -1 and non -1 corresponding values to b
-   
-   for(int i=1;i<=n;i++){
-      cin>>a[i];
-      if(a[i]!=-1){
-         b[i]=a[i];
-         flag=true;
-      }
-      else{
-         b[i]=b[i-1]/2;
-      }
-
-      if(flag==true && b[i]==0){
-         b[i]=2;
-      }
+   int n,m,k;cin>>n>>m>>k;
+   vector<int>ks(m,0),r(m,0);
+   for(int i=0;i<m;i++){
+       int c;cin>>c;
+       for(int j=0;j<c;j++){
+           int a;cin>>a;
+           a--;
+           ks[i]=ks[i]|(1<<a);
+       }
+       string s;cin>>s;
+       if(s=="o"){
+           r[i]=1;
+       }
+       else{
+           r[i]=0;
+       }
    }
 
-   // if the segment between l to r is -1 then we handle it separately
-   b[n+1]=b[0];
-   for(int i=n;i>=1;i--){
-      if(a[i]==-1){
-         b[i]=max(b[i],b[i+1]/2);
-      }
-      if(b[i]==0){
-         b[i]=2;
-      }
+   int res=0;
+   for(int i=0;i<(1<<n);i++){
+       bool judge=true;
+       for(int j=0;j<m;j++){
+           int ok=__builtin_popcount(i&ks[j]);
+
+           if(ok>=k && r[j]==0){
+               judge=false;
+               break;
+           }
+           if(ok<k && r[j]==1){
+               judge=false;
+               break;
+           }
+       }
+       if(judge==true)res++;
    }
-
-   //check if the array we made is good or not else return -1
-   for(int i=1;i<n;i++){
-       if (b[i] != b[i + 1] / 2 && b[i] / 2 != b[i + 1]) {
-            cout << "-1" << endl;
-            return;
-        }
-   }
-//print the final array b
-for(int i=1;i<=n;i++){
-   cout<<b[i]<<" ";
-}
-cout<<endl;
-
-
+   cout<<res<<endl;
+   return;
 }
                     
 signed main()
 {
 int t=1;
-cin>>t;
+
 while(t--)
 {
    solve();

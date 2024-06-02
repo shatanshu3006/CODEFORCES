@@ -49,60 +49,42 @@ return true;
 //ITS ABOUT DRIVE, ITS ABOUT POWER!!
 //WE STAY HUNGRY, WE DEVOUR!!
 //AIM -> WORK -> ACHIEVE -> REPEAT Carpe Diem!!
-                    
+ll func(ll j,ll n){
+    ll res=((n>>(j+1))<<j);
+//     This line calculates the number of complete blocks of size 2^j 
+//   in n and multiplies that count by 2^j. Effectively, it zeros out the last j bits of n.
+
+// bit check and addition
+if(n&(1ll<<j)){  //n&(1ll<<j checks if the bit at position j in n is set (1)
+
+
+// If this bit is set, the function then adds the value of the lower j bits of n plus one to res.
+// n & ((1ll << j) - 1) masks the lower j bits of n.
+// Adding one accounts for the inclusion of the bit at position j itself.
+    res+=((n&((1ll<<j)-1))+1);
+}
+
+return res;
+}
+       #define mod 998244353             
 void solve()
 {
-   int n;cin>>n;
-   int a[200020],b[200020];
-   bool flag=false;
-   //taking the inputs and filling -1 and non -1 corresponding values to b
-   
-   for(int i=1;i<=n;i++){
-      cin>>a[i];
-      if(a[i]!=-1){
-         b[i]=a[i];
-         flag=true;
-      }
-      else{
-         b[i]=b[i-1]/2;
-      }
-
-      if(flag==true && b[i]==0){
-         b[i]=2;
-      }
-   }
-
-   // if the segment between l to r is -1 then we handle it separately
-   b[n+1]=b[0];
-   for(int i=n;i>=1;i--){
-      if(a[i]==-1){
-         b[i]=max(b[i],b[i+1]/2);
-      }
-      if(b[i]==0){
-         b[i]=2;
-      }
-   }
-
-   //check if the array we made is good or not else return -1
-   for(int i=1;i<n;i++){
-       if (b[i] != b[i + 1] / 2 && b[i] / 2 != b[i + 1]) {
-            cout << "-1" << endl;
-            return;
-        }
-   }
-//print the final array b
-for(int i=1;i<=n;i++){
-   cout<<b[i]<<" ";
-}
-cout<<endl;
-
-
+   long long n,m;
+  cin >> n >> m;
+  long long res=0;
+  for(long long i=0;i<60;i++){
+    if(m&(1ll<<i)){
+      res+=func(i,n);
+      res%=mod;
+    }
+  }
+  cout << res << "\n";
 }
                     
 signed main()
 {
 int t=1;
-cin>>t;
+
 while(t--)
 {
    solve();

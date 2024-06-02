@@ -73,6 +73,26 @@ void solve()
     cout<<((n+m)|((1<<s)-1))<<endl;
 
 }
+
+// void solve(){
+//     ll n,m;
+//     cin>>n>>m;
+//     ll ans=0;
+//     ll left=n-m;
+//     ll right=n+m;
+//     for(int k=0;k<40;k++){
+//         ll a=left>>k;
+//         ll b=right>>k;
+
+//         if(a&1){
+//             ans=ans|(1LL<<k);
+//         }
+//         if(a<b){
+//             ans=ans|(1LL<<k);
+//         }
+//     }
+//     cout<<ans<<endl;
+// }
                     
 signed main()
 {
